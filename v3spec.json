@@ -1,0 +1,2783 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "AlphaStreet Data Services",
+    "version": ""
+  },
+  "servers": [
+    {
+      "url": "https://data.dev.alphastreet.com/v2"
+    }
+  ],
+  "tags": [
+  ],
+  "paths": {
+    "/documentation":{
+      "get":{
+        "tags":[
+          "Documentation API"
+        ],
+        "summary": "To get all alphastreet data service api info",
+        "operationId": "Alphastreet data service api info",
+        "parameters": [
+          {
+            "name": "dev",
+            "in": "query",
+            "required": false,
+            "description": "Dev",
+            "schema": {
+              "type": "string"
+            }
+          }],
+          "responses": {
+            "404": {
+              "description": "File not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/documentation Error"
+                  }
+                }
+              }
+            },
+            "200":{
+              "description": "successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/documentation"
+                  }
+                }
+              }
+            }
+          }
+      }
+    },
+    "/config?config_type=universe": {
+      "post": {
+        "tags": [
+          "Config Universe"
+        ],
+        "parameters": [
+          {
+            "name": "config_type",
+            "in": "query",
+            "required": true,
+            "description": "To Post Client Config Data With Universe",
+            "schema": {
+                "type": "string",
+                "enum":["universe"]
+              }
+          }
+        ],
+        "summary": "To Post Client Config Data With Universe",
+        "operationId": "addPet",
+        "requestBody": {
+          "description": "Pet object that needs to be added to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Config Universe"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200":{
+            "description": "Job Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200Response"
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Job Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400Response"
+                }
+              }
+            }
+          },
+          "500":{
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/500Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/user.post"
+            ]
+          }
+        ]
+      }
+    },
+    "/config?config_type=ip-whitelist": {
+      "post": {
+        "tags": [
+          "Config Ipwhitelist"
+        ],
+        "parameters": [
+          {
+            "name": "config_type",
+            "in": "query",
+            "required": true,
+            "description": "To Post Client Config Data With Ipwhitelist",
+            "schema": {
+                "type": "string",
+                "enum":["ip-whitelist"]
+              }
+          }
+        ],
+        "summary": "To Post Client Config Data With Whitelist",
+        "operationId": "addPet",
+        "requestBody": {
+          "description": "Pet object that needs to be added to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Config Whitelist"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200":{
+            "description": "Job Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200Response"
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Job Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400Response"
+                }
+              }
+            }
+          },
+          "500":{
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/500Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/user.post"
+            ]
+          }
+        ]
+      }
+    },
+    "/config/{id}": {
+      "get": {
+        "summary": "To Get Client Config Data",
+        "operationId": "showPetById",
+        "tags": [
+          "Get Config Data"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "CLIENTID-IP-WHITELIST / CLIENTID-UNIVERSE",
+            "schema": {
+                "type": "string"
+              }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetConfig"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "File Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404Response"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "To create cognito user",
+        "operationId": "addUser",
+        "requestBody": {
+          "description": "To create user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Create User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201":{
+            "description": "Job Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/201ResponseCreateUser"
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Job Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400 Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401 Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                }
+              }
+            }
+          },
+          "500":{
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/500Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/users.post"
+            ]
+          }
+        ]
+      }
+    },
+    "/users?search_by={search_by}&search_term={search_term}":{
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get users list with filters",
+        "operationId": "getUserswithfilters",
+        "parameters": [
+          {
+            "name": "search_by",
+            "in": "query",
+            "required": true,
+            "description": "Eg: name",
+            "schema": {
+              "type": "string",
+              "enum":["name","email","phone_number"]
+            }
+          },
+          {
+            "name": "search_term",
+            "in": "query",
+            "required": true,
+            "description": "Eg: e8pr0fkp5qof2cbpsgjprff1qashjv5hlc8v5be8rn3d65djv04",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor_next",
+            "in": "query",
+            "required": false,
+            "description": "Eg: e8pr0fkp5qof2cbpsgjprff1qashjv5hlc8v5be8rn3d65djv04",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200":{
+            "description": "Job Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users List"
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Job Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400 Users List"
+                }
+              }
+            }
+          },
+          "500":{
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/500Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/users.list"
+            ]
+          }
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "To Get User Information Using Id",
+        "operationId": "getID",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "to get user data by user id",
+            "schema": {
+                "type": "string"
+              }
+          }
+        ],
+        "responses": {
+          "200":{
+            "description": "Job Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200ResponseGetUserByID"
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Job Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ResponseGetUserByID"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401 Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                }
+              }
+            }
+          },
+          "500":{
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/500Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/users.read"
+            ]
+          }
+        ]
+      }
+    },
+    "/onboard": {
+      "post": {
+        "tags": [
+          "Client OnBoard"
+        ],
+        "summary": "Everything about client on-board",
+        "operationId": "usagePlansKeyDetatils",
+        "requestBody": {
+          "description": "To create clients and Api key",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OnBoard RequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid filters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400 Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401 Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403 Error"
+                }
+              }
+            }
+          },
+          "201":{
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OnBoard Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/onboard.post"
+            ]
+          }
+        ]
+      }
+    },
+    "/plans": {
+      "get": {
+        "tags": [
+          "Plans"
+        ],
+        "summary": "Everything about plans",
+        "operationId": "UsagePlans",
+        "responses": {
+          "400": {
+            "description": "Invalid filters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400 Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401 Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403 Error"
+                }
+              }
+            }
+          },
+          "200":{
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/plansResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/plans.list"
+            ]
+          }
+        ]
+      }
+    },
+    "/transcripts": {
+      "post": {
+        "tags": [
+          "Transcripts"
+        ],
+        "summary": "To create transcripts",
+        "operationId": "To create transcripts",
+        "requestBody": {
+          "description": "To create transcripts",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transcript RequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid filters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400 Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401 Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403 Error"
+                }
+              }
+            }
+          },
+          "201":{
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post Transcript"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/transcript.post"
+            ]
+          }
+        ]
+      }
+    },
+    "/alphagraphics": {
+      "post": {
+        "tags": [
+          "Alphagraphics"
+        ],
+        "summary": "To create Alphagraphics",
+        "operationId": "To create Alphagraphics",
+        "requestBody": {
+          "description": "To create Alphagraphics",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Alphagraphics RequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid filters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400 Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401 Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403 Error"
+                }
+              }
+            }
+          },
+          "201":{
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post Alphagraphics"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/alphagraphics.post"
+            ]
+          }
+        ]
+      }
+    },
+    "/tearsheets": {
+      "post": {
+        "tags": [
+          "Tearsheets"
+        ],
+        "summary": "To create Tearsheets",
+        "operationId": "To create Tearsheets",
+        "requestBody": {
+          "description": "To create Tearsheets",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tearsheets RequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid filters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400 Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401 Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403 Error"
+                }
+              }
+            }
+          },
+          "201":{
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post Tearsheets"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/tearsheets.post"
+            ]
+          }
+        ]
+      }
+    },
+    "/events": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "To create conference event",
+        "operationId": "addConferenceEvent",
+        "requestBody": {
+          "description": "To create a event",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Create Event"
+              },
+              "examples": {
+                "Conference Event Schema": {
+                  "value":"{\n\"source_id\": 123,\n\"source_type\": \"ECS\",\n\"event_type\":\"earnings_conference\",\n\"event_title\":\"financial call\",\n\"company_name\":\"Amazon inc\",\n\"exchange\":\"XNAS\",\n\"ticker\":\"AAPL\",\n\"fiscal_period\":\"Q1\",\n\"fiscal_year\":2019,\n\"period_end_date\":\"2019-10-11\",\n\"event_utc_datetime\":\"2019-10-11T10:00:00Z\",\n\"actual_start_time\":\"2019-10-11T10:00:05Z\",\n\"live_phone_us\":\"11113311\",\n\"live_passcode_us\":\"(844) 318-8148\",\n\"live_phone_intl\": \"88888888\",\n\"live_passcode_intl\": \"88888888\",\n\"replay_phone_us\": \"88888888\",\n\"replay_passcode_us\": \"88888888\",\n\"replay_phone_intl\": \"11113311\",\n\"replay_passcode_intl\": \"11113311\",\n\"registration_phone\": \"9919176777\",\n\"registration_passcode\": \"88888888\",\n\"replay_webcast_url\":\"http://huntington-ir.com/confcall/index.htm\",\n\"press_release_url\":\"http://www.nasdaq.com/press-release/darden-restaurants-to-host-fiscal-2016-second-quarter-conference-call-on-december-18-20151124-00859\",\n\"slides_url\":\"http://www.nasdaq.com/press-release/darden-restaurants-to-host-fiscal-2016-second-quarter-conference-call-on-december-18-20151124-00859\",\n\"live_webcast_url\":\"http://www.nasdaq.com/press-release/darden-restaurants-to-host-fiscal-2016-second-quarter-conference-call-on-december-18-20151124-00859\"\n}"
+                },
+                "Release Event Schema": {
+                  "value":"{\n\"source_id\": 123,\n\"source_type\": \"ECS\",\n\"event_type\":\"earnings_conference\",\n\"event_title\":\"financial call\",\n\"company_name\":\"Amazon inc\",\n\"exchange\":\"XNAS\",\n\"ticker\":\"AAPL\",\n\"fiscal_period\":\"Q1\",\n\"fiscal_year\":2019,\n\"event_utc_datetime\":\"2019-10-11T10:00:00Z\",\n\"period_end_date\":\"2019-10-11\",\n\"press_release_url\":\"http://www.nasdaq.com/press-release/darden-restaurants-to-host-fiscal-2016-second-quarter-conference-call-on-december-18-20151124-00859\" \n}"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201":{
+            "description": "Job Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/201ResponseCreateEvent"
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Job Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ResponseEventCreate"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401 Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403 Error"
+                }
+              }
+            }
+          },
+          "500":{
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/500Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/events.post"
+            ]
+          }
+        ]
+      }
+    },
+    "/webcasts": {
+      "post": {
+        "tags": [
+          "Webcasts"
+        ],
+        "summary": "To create webcast",
+        "operationId": "To create webcast",
+        "requestBody": {
+          "description": "To create webcast",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Webcast RequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid filters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400 Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401 Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403 Error"
+                }
+              }
+            }
+          },
+          "201":{
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/201ResponseCreateWebcast"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "alphastreet_auth": [
+              "asds/webcasts.post"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "400 Error": {
+        "type": "object",
+        "properties": {
+          "api_version": {
+            "type": "string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"c58a387b-8df3-11e9-99f3-5da1f91841eb"
+          },
+          "data": {
+            "type":"object",
+            "properties":{
+              "errors":{
+                "type":"object",
+                "properties":{
+                  "ticker":{
+                    "type":"string",
+                    "example":"Cannot be empty."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "401 Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example":"Unauthorized"
+          }
+        }
+      },
+      "403 Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example":"User is not authorized to access this resource"
+          }
+        }
+      },
+      "404 Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example":"File not found"
+          }
+        }
+      },
+      "Get Config":{
+        "type":"string",
+        "properties":{
+          "id":{
+            "type":"string"
+          }
+        }
+      },
+      "Config Universe": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "example":"sample-client"
+          },
+          "config":{
+            "type":"object",
+            "properties":{
+              "exchange_map":{
+                "type":"object",
+                "example":{
+                  "XNYS": "NYSE",
+                  "XNAS": "NASDAQ",
+                  "XASE": "NYSEMKT"
+                }
+              },
+              "category_map":{
+                "type":"object",
+                "example":{
+                  "technology-and-telecom": "custom-technology-and-telecom",
+                  "financials": "custom-financials",
+                  "health-care": "custom-health-care",
+                  "energy-materials-and-utilities": "custom-energy-materials-and-utilities",
+                  "consumer-goods": "custom-consumer-goods",
+                  "industrials": "custom-industrials",
+                  "other": "custom-other"
+                }
+              },
+              "category_domain":{
+                "type":"string",
+                "example":"https://www.fool.com/bureau"
+              }
+            }
+          },
+          "tickers":{
+            "type":"array",
+            "items":{
+              "type":"string",
+              "example":"['PKE','MSFT','AAPL']"
+            }
+          }
+        }
+      },
+      "Config Whitelist": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "example":"sample-client"
+          },
+          "ip_whitelist":{
+            "type":"array",
+            "items":{
+              "type":"string",
+              "example": [
+                "2405:201:c80b:5f13:fd49:1232:384a:c6c9",
+                "49.37.200.206",
+                "175.101.4.11",
+                "50.16.146.164"
+                ]
+            }
+          }
+        }
+      },
+      "GetConfig": {
+        "type": "object",
+        "properties": {
+          "responseIpWhitelist":{
+            "type":"object",
+            "properties":{
+              "client_id": {
+                "type": "string",
+                "example":"sample-client"
+              },
+              "ip_whitelist":{
+                "type":"array",
+                "items":{
+                  "type":"string",
+                  "example": [
+                    "2405:201:c80b:5f13:fd49:1232:384a:c6c9",
+                    "49.37.200.206",
+                    "175.101.4.11",
+                    "50.16.146.164"
+                    ]
+                }
+              }
+            }
+          },
+          "responseUniverse":{
+            "type":"object",
+            "properties":{
+              "client_id": {
+                "type": "string",
+                "example":"sample-client"
+              },
+              "config":{
+                "type":"object",
+                "properties":{
+                  "exchange_map":{
+                    "type":"object",
+                    "example":{
+                      "XNYS": "NYSE",
+                      "XNAS": "NASDAQ",
+                      "XASE": "NYSEMKT"
+                    }
+                  },
+                  "category_map":{
+                    "type":"object",
+                    "example":{
+                      "technology-and-telecom": "custom-technology-and-telecom",
+                      "financials": "custom-financials",
+                      "health-care": "custom-health-care",
+                      "energy-materials-and-utilities": "custom-energy-materials-and-utilities",
+                      "consumer-goods": "custom-consumer-goods",
+                      "industrials": "custom-industrials",
+                      "other": "custom-other"
+                    }
+                  },
+                  "category_domain":{
+                    "type":"string",
+                    "example":"https://www.fool.com/bureau"
+                  }
+                }
+              },
+              "tickers":{
+                "type":"array",
+                "items":{
+                  "type":"string",
+                  "example":"['PKE','MSFT','AAPL']"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example":"success"
+          },
+          "statusCode":{
+            "type":"string",
+            "example":"200"
+          }
+        }
+      },
+      "200Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example":"success"
+          },
+          "statusCode":{
+            "type":"string",
+            "example":"200"
+          }
+        }
+      },
+      "400Response": {
+        "type": "object",
+        "properties": {
+          "response1": {
+            "type":"object",
+            "properties":{
+              "message":{
+                "type":"string",
+                "example":"json object is empty"
+              },
+              "statusCode":{
+                "example":400
+              }
+            }
+          },
+          "response2": {
+            "type":"object",
+            "properties":{
+              "message":{
+                "type":"string",
+                "example":"client id required"
+              },
+              "statusCode":{
+                "type":"integer",
+                "example":400
+              }
+            }
+          },
+          "response3": {
+            "type":"object",
+            "properties":{
+              "message":{
+                "type":"string",
+                "example":"config type is required"
+              },
+              "statusCode":{
+                "type":"integer",
+                "example":400
+              }
+            }
+          },
+          "response4": {
+            "type":"object",
+            "properties":{
+              "message":{
+                "type":"string",
+                "example":"invalid json data"
+              },
+              "statusCode":{
+                "type":"integer",
+                "example":400
+              }
+            }
+          },
+          "response5": {
+            "type":"object",
+            "properties":{
+              "message":{
+                "type":"string",
+                "example":"invalid config type"
+              },
+              "statusCode":{
+                "type":"integer",
+                "example":400
+              }
+            }
+          },
+          "response6": {
+            "type":"object",
+            "properties":{
+              "message":{
+                "type":"string",
+                "example":"invalid client id"
+              },
+              "statusCode":{
+                "type":"integer",
+                "example":400
+              }
+            }
+          },
+          "response7": {
+            "type":"object",
+            "properties":{
+              "message":{
+                "type":"string",
+                "example":"config type  is required"
+              },
+              "statusCode":{
+                "type":"integer",
+                "example":400
+              }
+            }
+          },
+          "response8": {
+            "type":"object",
+            "properties":{
+              "message":{
+                "type":"string",
+                "example":"invalid json object"
+              },
+              "statusCode":{
+                "type":"integer",
+                "example":400
+              }
+            }
+          },
+          "response9": {
+            "type":"object",
+            "properties":{
+              "message":{
+                "type":"string",
+                "example":"json body is empty"
+              },
+              "statusCode":{
+                "type":"integer",
+                "example":400
+              }
+            }
+          }
+        }
+      },
+      "403": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example":"User is not authorized to access this resource"
+          }
+        }
+      },
+      "500Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example":"Internal Server"
+          },
+          "statusCode":{
+            "type":"string",
+            "example":"500"
+          }
+        }
+      },
+      "404Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example":"File Not Found"
+          },
+          "statusCode":{
+            "type":"string",
+            "example":"404"
+          }
+        }
+      },
+      "documentation":{
+        "type":"object",
+        "properties":{
+          "openapi":{
+            "type":"string",
+            "example":"3.0.1"
+          },
+          "info":{
+            "type":"object",
+            "properties":{
+              "title":{
+                "type":"string",
+                "example":"Alphastreet"
+              },
+              "license":{
+                "type":"object",
+                "properties":{
+                  "tinametle":{
+                    "type":"string",
+                    "example":"MIT"
+                  }
+                }
+              },
+              "version":{
+                "type":"string",
+                "example":"1.0.0"
+              }
+            }
+          },
+          "servers":{
+            "type":"array",
+            "items":{
+              "type":"object",
+              "properties":{
+                "url":{
+                  "type":"string",
+                  "example":"https://********-api.us-east-1.amazonaws.com/dev-*********"
+                }
+              }
+            }
+          },
+          "tags":{
+            "type":"array",
+            "items":{
+              "type":"object",
+              "properties":{
+                "name":{
+                  "type":"string",
+                  "example":"List transcripts"
+                },
+                "description":{
+                  "type":"string",
+                  "example":"To get the list of transcripts"
+                }
+              }
+            }
+          },
+          "paths":{
+            "type":"object",
+            "properties":{
+              "/transcripts":{
+                "type":"object",
+                "properties":{
+                  "get":{
+                    "type":"object",
+                    "properties":{
+                      "tags":{
+                        "type":"array",
+                        "items":{
+                          "type":"string",
+                          "example":"List transcripts"
+                        } 
+                      },
+                      "summary":{
+                        "type":"string",
+                        "example":"To get Transcripts"
+                      },
+                      "operationId":{
+                        "type":"string",
+                        "example":"Transcriptslist"
+                      },
+                      "parameters":{
+                        "type":"array",
+                        "items":{
+                          "type":"object",
+                          "properties":{
+                            "ticker":{
+                              "type":"string",
+                              "example":"ticker"
+                            },
+                            "in":{
+                              "type":"string",
+                              "example":"query"
+                            },
+                            "required":{
+                              "type":"string",
+                              "example":"false"
+                            },
+                            "description":{
+                              "type":"string",
+                              "example":"Ticker"
+                            },
+                            "schema":{
+                              "type":"object",
+                              "properties":{
+                                "type":{
+                                  "type":"string",
+                                  "example":"string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "responses":{
+                        "type":"object",
+                        "properties":{
+                          "200":{
+                            "type":"object",
+                            "properties":{
+                              "description":{
+                                "type":"string",
+                                "example":"successful operation"
+                              },
+                              "content":{
+                                "type":"object",
+                                "properties":{
+                                  "application/json":{
+                                    "type":"object",
+                                    "properties":{
+                                      "schema":{
+                                        "type":"object",
+                                        "properties":{
+                                          "$ref":{
+                                            "type":"string",
+                                            "example":"#/components/schemas/ApiResponse"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "security":{
+                        "type":"array",
+                        "items":{
+                          "type":"object",
+                          "properties":{
+                            "alphastreet_auth":{
+                              "type":"array",
+                              "items":{
+                                "type":"string",
+                                "example":"asds/transcript.list"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "components":{
+            "type":"object",
+            "properties":{
+              "success":{
+                "type":"object",
+                "properties":{
+                  "type":{
+                    "type":"string",
+                    "example":"string"
+                  },
+                  "example":{
+                    "type":"string",
+                    "example":"string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "documentation Error":{
+        "type":"object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example":"File Not Found"
+          }
+        }
+      },
+      "Create User": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example":"username@example.com"
+          },
+          "groups":{
+            "type":"string",
+            "example":["users","admin","demo"]
+          },
+          "name":{
+            "type":"string",
+            "example":"John"
+          },
+          "company":{
+            "type":"string",
+            "example":"example company"
+          },
+          "tech_email":{
+            "type":"string",
+            "example":"username@example.com"
+          },
+          "billing_email":{
+            "type":"string",
+            "example":"username@example.com"
+          },
+          "corporate_address":{
+            "type":"string",
+            "example":"USA"
+          },
+          "contract":{
+            "type":"object",
+            "properties":{
+              "s3_path":{
+                "type":"string",
+                "example":"N/A"
+              }
+            }
+          },
+          "password":{
+            "type":"string",
+            "example":"Abcd@123"
+          },
+          "phone":{
+            "type":"string",
+            "example":"+1XXXXXXXXXX"
+          },
+          "created_by":{
+            "type":"string",
+            "example":"adminuser"
+          }
+        }
+      },
+      "201ResponseCreateUser":{
+        "properties":{
+          "api_version":{
+            "type":"string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"XXXXX-XXXX-XXXX-XXXX-XXXXXXXX"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "item":{
+                "type":"object",
+                "properties":{
+                  "status":{
+                    "type":"string",
+                    "example":true
+                  },
+                  "created_by":{
+                    "type":"string",
+                    "example":"adminuser"
+                  },
+                  "updated_by":{
+                    "type":"string",
+                    "example":"adminuser"
+                  },
+                  "created_at":{
+                    "type":"string",
+                    "example":"YYYY-MM-DDTHH:MM:SSZ"
+                  },
+                  "updated_at":{
+                    "type":"string",
+                    "example":"YYYY-MM-DDTHH:MM:SSZ"
+                  },
+                  "user_id":{
+                    "type":"string",
+                    "example":"XXXX-XXXX-XXXX-XXXX-XXXXXXXXX"
+                  },
+                  "tech_email":{
+                    "type":"string",
+                    "example":"tech@example.com"
+                  },
+                  "billing_email":{
+                    "type":"string",
+                    "example":"billing@example.com"
+                  },
+                  "contract":{
+                    "type":"object",
+                    "properties":{
+                      "s3_path":{
+                        "type":"string",
+                        "example":"N/A"
+                      }
+                    }
+                  },
+                  "company":{
+                    "type":"string",
+                    "example":"Alphastreet"
+                  },
+                  "name":{
+                    "type":"string",
+                    "example":"John"
+                  },
+                  "address":{
+                    "type":"string",
+                    "example":"USA"
+                  },
+                  "phone":{
+                    "type":"string",
+                    "example":"+91XXXXXXXXXXX"
+                  },
+                  "groups":{
+                    "type":"array",
+                    "items":{
+                      "type":"string",
+                      "example":["admin","users"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "400ResponseUserCreate":{
+        "properties":{
+          "api_version":{
+            "type":"string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"58ee3ed8-ade7-11e9-92a4-9ffb1e1c7d4d"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "errors":{
+                "type":"object",
+                "properties":{
+                  "username":{
+                    "tyupe":"string",
+                    "example":"required field."
+                  },
+                  "groups":{
+                    "tyupe":"string",
+                    "example":"required field."
+                  },
+                  "password":{
+                    "tyupe":"string",
+                    "example":"required field."
+                  },
+                  "name":{
+                    "tyupe":"string",
+                    "example":"required field."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Users List": {
+        "type": "object",
+        "properties": {
+          "api_version": {
+            "type": "string",
+            "example":"v2"
+          },
+          "response_id": {
+            "type": "string",
+            "example":"d27a5864-ade5-11e9-905b-67e7f2499d21"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "items":{
+                "type":"array",
+                "items":{
+                  "type":"object",
+                  "properties":{
+                    "id":{
+                      "type":"string",
+                      "example":"1b3372b5-8d7c-4658-881d-4d1787b1f159"
+                    },
+                    "name":{
+                      "type":"string",
+                      "example":"user"
+                    },
+                    "username":{
+                      "type":"string",
+                      "example":"user@example.com"
+                    },
+                    "status":{
+                      "type":"string",
+                      "example":true
+                    },
+                    "created_at":{
+                      "type":"string",
+                      "example":"2019-07-23T16:13:39.657Z"
+                    },
+                    "updated_at":{
+                      "type":"string",
+                      "example":"2019-07-23T16:13:39.657Z"
+                    }
+                  } 
+                }  
+              },
+              "cursor_next":{
+                "type":"string",
+                "example":"CAISsAIIARKJAggDEoQCAItR9D2pd/panju+iT"
+              }
+            }
+          }
+        }
+      },
+      "400 Users List": {
+        "type": "object",
+        "properties":{
+          "type":"object",
+            "api_version": {
+              "type": "string",
+              "example":"v2"
+            },
+            "response_id": {
+              "type": "string",
+              "example":"58ee3ed8-ade7-11e9-92a4-9ffb1e1c7d4d"
+            },
+            "data":{
+              "type":"object",
+              "properties":{
+                "errors":{
+                  "type":"object",
+                  "properties":{
+                    "phone_number":{
+                      "type":"string",
+                      "example":"Phone number is invalid. It should have only numbers starting with +."
+                    }
+                  }
+                }
+              }
+            }
+          }
+      },     
+      "200ResponseGetUserByID": {
+        "properties":{
+          "api_version":{
+            "type":"string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"95c3eb03-bac1-11e9-a262-b9b081e44040" 
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "items":{
+                "type":"object",
+                "properties":{
+                  "address":{
+                    "type":"string",
+                    "example":"hyderabad"
+                  },
+                  "name":{
+                    "type":"string",
+                    "example":"test user" 
+                  },
+                  "phone":{
+                    "type":"string",
+                    "example":"+915566589857"
+                  },
+                  "username":{
+                    "type":"string",
+                    "example":"testuser@gmail.com" 
+                  },
+                  "status":{
+                    "type":"string",
+                    "example":true
+                  },
+                  "updated_at":{
+                    "type":"string",
+                    "example":"2019-07-24T11:31:09Z" 
+                  },
+                  "tech_email":{
+                    "type":"string",
+                    "example":"testusertest@gmail.com"
+                  },
+                  "user_id":{
+                    "type":"string",
+                    "example":"95c3eb03-bac1-11e9-a262-b9b081e44040" 
+                  },
+                  "created_at":{
+                    "type":"string",
+                    "example":"2019-07-24T11:31:09Z"
+                  },
+                  "updated_by":{
+                    "type":"string",
+                    "example":"ADMIN" 
+                  },
+                  "company":{
+                    "type":"string",
+                    "example":"example company"
+                  },
+                  "created_by":{
+                    "type":"string",
+                    "example":"ADMIN" 
+                  },
+                  "billing_email":{
+                    "type":"string",
+                    "example":"testbillingemail@gmail.com"
+                  },
+                  "contract":{
+                    "type":"object",
+                    "properties":{
+                      "s3_path":{
+                        "type":"string",
+                        "example":"test.json"
+                      }
+                    }
+                  },
+                  "groups":{
+                    "type":"array",
+                    "items":{
+                      "example":"admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "400ResponseGetUserByID": {
+        "type": "object",
+        "properties":{
+          "type":"object",
+          "api_version": {
+            "type": "string",
+            "example":"v2"
+          },
+          "response_id": {
+            "type": "string",
+            "example":"58ee3ed8-ade7-11e9-92a4-9ffb1e1c7d4d"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "errors":{
+                "type":"object",
+                "properties":{
+                  "message":{
+                    "type":"string",
+                    "example":"User does not exist."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "OnBoard Response": {
+        "type": "object",
+        "properties": {
+          "api_version": {
+            "type": "string",
+            "example":"v2"
+          },
+          "response_id": {
+            "type": "string",
+            "example":"95b79f82-8def-11e9-a664-bd3bc6ed2bf6"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "items":{
+                "type":"object",
+                "properties":{
+                  "user_id":{
+                    "type":"string",
+                    "example":"525920ce-65be-4705-a4d6-d98c35513992"
+                  },
+                  "client_name":{
+                    "type":"string",
+                    "example":"aspro"
+                  },
+                  "client_id":{
+                    "type":"string",
+                    "example":"2rp9i66ea4o9p4u0dn2qbtiq8d"
+                  },
+                  "client_secret":{
+                    "type":"string",
+                    "example":"d8quq9r45gvcpmdcrlgno1f4qk37bc5facat3kl3k19tern9uu9"
+                  },
+                  "scopes":{
+                    "type":"array",
+                    "items":{
+                      "type":"string",
+                      "example":"asds/users.post"
+                    }
+                  },
+                  "status":{
+                    "type":"string",
+                    "example":"ENABLED"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "OnBoard RequestBody": {
+        "type": "object",
+        "properties": {
+         "user_id":{
+           "type":"string",
+           "example":"525920ce-65be-4705-a4d6-d98c35513992"
+         },
+         "services":{
+           "type":"array",
+           "items":{
+             "type":"object",
+             "properties":{
+               "scope":{
+                 "type":"string",
+                 "example":"asds/transcript.list"
+               },
+               "created_by":{
+                 "type":"string",
+                 "example":"ASPRO"
+               },
+               "created_at":{
+                 "type":"string",
+                 "example":"2017-12-31T23:59:59Z"
+               },
+               "last_updated_at":{
+                "type":"string",
+                "example":"2017-12-31T23:59:59Z"
+              }
+             }
+           }
+         },
+         "plan":{
+           "type":"object",
+           "properties":{
+             "usage_plan_name":{
+               "type":"string",
+               "example":"alphastreet-data-services-stage"
+             },
+             "api_key_name":{
+              "type":"string",
+              "example":"asPro"
+            },
+            "api_key_description":{
+              "type":"string",
+              "example":"user_name:user@example.com, user_id:ae8524a4bf92-ae94d, usage_plan_name:alphastreet-data-services-stage, usage_plan_id:xxxxxx"
+            },
+            "usage_plan_id":{
+              "type":"string",
+              "example":"xxxxx"
+            },
+            "create_by":{
+              "type":"string",
+              "example":"asPro"
+            }
+           }
+         },
+         "app":{
+          "type":"object",
+          "properties":{
+            "app_name":{
+              "type":"string",
+              "example":"alphastreet"
+            },
+            "scopes":{
+              "type":"array",
+              "items":{
+                "type":"string",
+                "example":"asds/transcript.list"
+              }
+            }
+          }
+         }
+        }
+      },
+      "plansResponse":{
+        "type":"object",
+        "properties":{
+          "api_version":{
+            "type":"string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"96c18e3e-b2b6-11e9-9e66-9317b9b26a79"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "items":{
+                "type":"array",
+                "items":{
+                  "type":"object",
+                  "properties":{
+                    "id":{
+                      "type":"string",
+                      "example":"xxxxx"
+                    },
+                    "name":{
+                      "type":"string",
+                      "example":"alphastreet-data-services-stage"
+                    },
+                    "description":{
+                      "type":"string",
+                      "example":"Usage plan for alphastreet-data-services stage stage"
+                    },
+                    "throttle":{
+                      "type":"object",
+                      "properties":{
+                        "burst_limit":{
+                          "type":"number",
+                          "example":200
+                        },
+                        "rate_limit":{
+                          "type":"number",
+                          "example":100
+                        }
+                      }
+                    },
+                    "quota":{
+                      "type":"object",
+                      "properties":{
+                        "limit":{
+                          "type":"number",
+                          "example":5000
+                        },
+                        "offset":{
+                          "type":"number",
+                          "example":0
+                        },
+                        "period":{
+                          "type":"string",
+                          "example":"MONTH"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Transcript RequestBody":{
+        "type":"object",
+        "properties":{
+          "source_id":{
+            "type":"number",
+            "example": 5487
+          },
+          "transcript_type":{
+            "type":"string",
+            "example": "raw"
+          },
+          "transcript":{
+            "type":"object",
+            "properties":{
+              "call_data":{
+                "type": "object",
+                "properties":{
+                  "category":{
+                    "type":"string",
+                    "example": "earnings_conference"
+                  },
+                  "eventdatetime":{
+                    "type":"string",
+                    "example": "2018-01-25 16:00:00"
+                  },
+                  "company":{
+                    "type":"string",
+                    "example": "alphastreet"
+                  },
+                  "industry_category":{
+                    "type":"string",
+                    "example": "financials"
+                  },
+                  "ticker":{
+                    "type":"string",
+                    "example": "AAPL"
+                  },
+                  "period":{
+                    "type":"string",
+                    "example": "Q3"
+                  },
+                  "year":{
+                    "type":"number",
+                    "example": 2019
+                  },
+                  "language":{
+                    "type":"string",
+                    "example": "English"
+                  },
+                  "call_duration":{
+                    "type":"string",
+                    "example": "15:45:59"
+                  },
+                  "period_end_date":{
+                    "type":"string",
+                    "example": "2019-11-24"
+                  },
+                  "exchange":{
+                    "type":"string",
+                    "example": "NASDAQ"
+                  }
+                }
+              },
+              "participants":{
+                "type":"object",
+                "properties":{
+                  "operator":{
+                    "type":"array",
+                    "items":{
+                      "type":"object",
+                      "properties":{
+                        "id":{
+                          "type":"number",
+                          "example":1
+                        },
+                        "name":{
+                          "type":"string",
+                          "example":"Operator"
+                        }
+                      }
+                    }
+                  },
+                  "executives":{
+                    "type":"array",
+                    "items":{
+                      "type":"object",
+                      "properties":{
+                        "id":{
+                          "type":"number",
+                          "example":2
+                        },
+                        "name":{
+                          "type":"string",
+                          "example":"xxxxxxxx"
+                        },
+                        "company":{
+                          "type":"string",
+                          "example":"xxxxxxxx xxxx"
+                        },
+                        "designation":{
+                          "type":"string",
+                          "example":"xxxxxxxx"
+                        }
+                      }
+                    }
+                  },
+                  "analyst":{
+                    "type":"array",
+                    "items":{
+                      "type":"object",
+                      "properties":{
+                        "id":{
+                          "type":"number",
+                          "example":3
+                        },
+                        "name":{
+                          "type":"string",
+                          "example":"xxxxxxxx"
+                        },
+                        "company":{
+                          "type":"string",
+                          "example":"xxxxxxxx xxxx"
+                        },
+                        "designation":{
+                          "type":"string",
+                          "example":"xxxxxxxx"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "presentation": {
+                "type":"array",
+                "items":{
+                  "type": "object",
+                  "properties":{
+                    "participant_id":{
+                      "type":"number",
+                      "example": 1
+                    },
+                    "participant_name":{
+                      "type":"string",
+                      "example": "xxxxxxxx"
+                    },
+                    "transcript_data":{
+                      "type":"array",
+                      "items":{
+                        "type":"string",
+                        "example":"Good morning. My name is Krystal, and I'll be your conference operator today. At this time, I would like to welcome everyone to the Park Electrochemical Corp Third Quarter Fiscal Year '19 Earnings Release Conference Call."
+                      }
+                    }
+                  }
+                }
+              },
+              "questions_and_answers": {
+                "type":"array",
+                "items":{
+                  "type": "object",
+                  "properties":{
+                    "participant_id":{
+                      "type":"number",
+                      "example": 2
+                    },
+                    "participant_name":{
+                      "type":"string",
+                      "example": "xxxxxxxx"
+                    },
+                    "company":{
+                      "type":"string",
+                      "example": "xxxxxxxx"
+                    },
+                    "designation":{
+                      "type":"string",
+                      "example": "xxxxxxxx"
+                    },
+                    "transcript_data":{
+                      "type":"array",
+                      "items":{
+                        "type":"string",
+                        "example":"Nick Roop Estella (ph), NR Management.And I want to congratulate you on achieving your short-term goals there, all goals welcome actually but a good job on that, and I appreciate a special dividend. So I just want to get back to the big picture on the acquisitions."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Alphagraphics RequestBody":{
+        "type":"object",
+        "properties":{
+          "source_id":{
+            "type":"number",
+            "example": 5487
+          },
+          "source_type":{
+            "type":"string",
+            "example": "ECS"
+          },
+          "event_utc_datetime":{
+            "type":"string",
+            "example": "2019-08-20T10:00:00Z"
+          },
+          "published_date":{
+            "type":"string",
+            "example": "2019-08-21T10:00:00Z"
+          },
+          "alphagraphic_type":{
+            "type":"string",
+            "example": "m_a"
+          },
+          "fiscal_year":{
+            "type":"number",
+            "example": 2019
+          },
+          "fiscal_period":{
+            "type":"string",
+            "example": "Q3"
+          },
+          "event":{
+            "type":"string",
+            "example": "xxxxxx"
+          },
+          "ticker":{
+            "type":"string",
+            "example": "AAPL"
+          },
+          "exchange":{
+            "type":"string",
+            "example": "XNYS"
+          },
+          "company_name":{
+            "type":"string",
+            "example": "xxxxxx xxxxx"
+          },
+          "pr_segment":{
+            "type":"string",
+            "example": "before_market_open"
+          },
+          "description":{
+            "type":"string",
+            "example": "description about alphagraphics"
+          },
+          "tags":{
+            "type":"string",
+            "example": "smoke, for, exchange"
+          },
+          "image":{
+            "type":"string",
+            "example": "Image base64 format"
+          }
+        }
+      },
+      "Tearsheets RequestBody":{
+        "type":"object",
+        "properties":{
+          "source_id":{
+            "type":"number",
+            "example": 5487
+          },
+          "source_type":{
+            "type":"string",
+            "example": "ETYP"
+          },
+          "published_date":{
+            "type":"string",
+            "example": "2019-08-21T10:00:00Z"
+          },
+          "fiscal_year":{
+            "type":"number",
+            "example": 2019
+          },
+          "fiscal_period":{
+            "type":"string",
+            "example": "Q3"
+          },
+          "ticker":{
+            "type":"string",
+            "example": "AAPL"
+          },
+          "exchange":{
+            "type":"string",
+            "example": "XNYS"
+          },
+          "company_name":{
+            "type":"string",
+            "example": "xxxxxx xxxxx"
+          },
+          "description":{
+            "type":"string",
+            "example": "description about alphagraphics"
+          },
+          "tags":{
+            "type":"string",
+            "example": "smoke, for, exchange"
+          },
+          "word_count":{
+            "type": "number",
+            "example": 12
+          },
+          "topic":{
+            "type": "string",
+            "example": "Topic related to tearsheet"
+          },
+          "file":{
+            "type":"string",
+            "example": "PDF base64 format"
+          }
+        }
+      },
+      "Webcast RequestBody":{
+        "type":"object",
+        "properties":{
+          "source_id":{
+            "type":"number",
+            "example": 5487
+          },
+          "source_type":{
+            "type":"string",
+            "example": "ECS"
+          },
+          "eventdatetime":{
+            "type":"string",
+            "example": "2019-08-20T10:00:00Z"
+          },
+          "year":{
+            "type":"number",
+            "example": 2019
+          },
+          "period":{
+            "type":"string",
+            "example": "Q3"
+          },
+          "ticker":{
+            "type":"string",
+            "example": "AAPL"
+          },
+          "exchange":{
+            "type":"string",
+            "example": "XNYS"
+          },
+          "company":{
+            "type":"string",
+            "example": "Apple inc"
+          },
+          "industry_category":{
+            "type":"string",
+            "example": "Finance"
+          },
+          "category":{
+            "type":"string",
+            "example": "earnings_conference"
+          },
+          "call_duration":{
+            "type":"string",
+            "example": "10:10:00"
+          },
+          "period_end_date":{
+            "type":"string",
+            "example": "2019-10-04"
+          },
+          "language":{
+            "type":"string",
+            "example":"english"
+          }
+        }
+      },
+      "Post Transcript":{
+        "type":"object",
+        "properties":{
+          "api_version":{
+            "type":"string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"xxxx-xxxxx-xxxxxx"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "items":{
+                "type":"object",
+                "properties":{
+                  "id":{
+                    "type":"string",
+                    "example":"xxxx-xxxx-xxxx"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Post Alphagraphics":{
+        "type":"object",
+        "properties":{
+          "api_version":{
+            "type":"string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"xxxx-xxxxx-xxxxxx"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "items":{
+                "type":"object",
+                "properties":{
+                  "id":{
+                    "type":"string",
+                    "example":"xxxx-xxxx-xxxx"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Post Tearsheets":{
+        "type":"object",
+        "properties":{
+          "api_version":{
+            "type":"string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"xxxx-xxxxx-xxxxxx"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "items":{
+                "type":"object",
+                "properties":{
+                  "id":{
+                    "type":"string",
+                    "example":"xxxx-xxxx-xxxx"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Create Event":{
+        "type": "object",
+        "properties": {
+          "source_id": {
+            "type": "integer",
+            "example":123
+          },
+          "source_type": {
+            "type": "string",
+            "example":"ECS"
+          },
+          "event_type": {
+            "type": "string",
+            "example":"earnings_conference"
+          },
+          "event_title": {
+            "type": "string",
+            "example":"financial call"
+          },
+          "company_name":{
+            "type": "string",
+            "example":"Amazon inc"
+          },
+          "exchange": {
+            "type": "string",
+            "example": "XNAS"
+          },
+          "ticker": {
+            "type":"string",
+            "example":"AAPL"
+          },
+          "fiscal_period": {
+            "type":"string",
+            "example":"Q1"
+          },
+          "fiscal_year": {
+            "type":"integer",
+            "example":2019
+          },
+          "event_utc_datetime": {
+            "type":"string",
+            "example":"2019-10-11T10:00:00Z"
+          },
+          "actual_start_time": {
+            "type":"string",
+            "example":"2019-10-11T10:00:05Z"
+          },
+          "live_phone_us": {
+            "type":"string",
+            "example":"11113311"
+          },
+          "live_passcode_us": {
+            "type":"string",
+            "example":"(844) 318-8148"
+          },
+          "live_phone_intl": {
+            "type":"string",
+            "example":"88888888"
+          },
+          "live_passcode_intl": {
+            "type":"string",
+            "example":"88888888"
+          },
+          "replay_phone_us": {
+            "type":"string",
+            "example":"88888888"
+          },
+          "replay_passcode_us": {
+            "type":"string",
+            "example":"88888888"
+          },
+          "replay_phone_intl": {
+            "type":"string",
+            "example":"11113311"
+          },
+          "replay_passcode_intl": {
+            "type":"string",
+            "example":"11113311"
+          },
+          "registration_phone": {
+            "type":"string",
+            "example":"9919176777"
+          },
+          "registration_passcode": {
+            "type":"string",
+            "example":"88888888"
+          },
+          "replay_webcast_url": {
+            "type":"string",
+            "example":"http://huntington-ir.com/confcall/index.htm"
+          },
+          "press_release_url": {
+            "type":"string",
+            "example":"http://www.nasdaq.com/press-release/darden-restaurants-to-host-fiscal-2016-second-quarter-conference-call-on-december-18-20151124-00859"
+          },
+          "slides_url": {
+            "type":"string",
+            "example":"http://www.nasdaq.com/press-release/darden-restaurants-to-host-fiscal-2016-second-quarter-conference-call-on-december-18-20151124-00859"
+          },
+          "live_webcast_url": {
+            "type":"string",
+            "example":"http://www.nasdaq.com/press-release/darden-restaurants-to-host-fiscal-2016-second-quarter-conference-call-on-december-18-20151124-00859"
+          },
+          "period_end_date": {
+            "type":"string",
+            "example":"2019-01-20"
+          }
+        }
+      },
+      "201ResponseCreateEvent":{
+        "properties":{
+          "api_version":{
+            "type":"string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"XXXXX-XXXX-XXXX-XXXX-XXXXXXXX"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "items":{
+                "type":"object",
+                "properties":{
+                  "id":{
+                    "type":"string",
+                    "example":"db680066-c83d-5ed7-89a4-1d79466ea62"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "201ResponseCreateWebcast":{
+        "properties":{
+          "api_version":{
+            "type":"string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"XXXXX-XXXX-XXXX-XXXX-XXXXXXXX"
+          },
+          "data":{
+            "type":"object",
+            "properties":{
+              "items":{
+                "type":"object",
+                "properties":{
+                  "id":{
+                    "type":"string",
+                    "example":"db680066-c83d-5ed7-89a4-1d79466ea62"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "400ResponseEventCreate": {
+        "type": "object",
+        "properties": {
+          "api_version": {
+            "type": "string",
+            "example":"v2"
+          },
+          "response_id":{
+            "type":"string",
+            "example":"c58a387b-8df3-11e9-99f3-5da1f91841eb"
+          },
+          "data": {
+            "type":"object",
+            "properties":{
+              "errors":{
+                "type":"object",
+                "properties":{
+                  "ticker":{
+                    "type":"string",
+                    "example":"Cannot be empty."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "alphastreet_auth": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://auth.data.dev.alphastreet.com/oauth2/token",
+            "scopes": {
+                "asds/admin.ip-whitelist": " Whitelist IP's",
+                "asds/users.list": "List Users",
+                "asds/users.post": "Creat User",
+                "asds/users.read": "To read user",
+                "asds/events.post": "Create Event",
+                "asds/events.list": "List Events",
+                "asds/onboard.post": "Create Client",
+                "asds/plans.list": "To get usage plans",
+                "asds/transcript.post": "To Create transcripts",
+                "asds/alphagraphics.post": "To Create alphagraphics",
+                "asds/tearsheets.post": "To Create tearsheets",
+                "asds/webcasts.post": "To Create Webcast"
+            }
+          }
+        }
+      }
+    }
+  }
+}
